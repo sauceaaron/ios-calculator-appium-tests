@@ -6,7 +6,7 @@ public class TestObjectResultWatcher extends TestWatcher
 {
 	AppiumDriver driver;
 	
-	public void bindDriver(AppiumDriver driver)
+	public void setDriver(AppiumDriver driver)
 	{
 		this.driver = driver;
 	}

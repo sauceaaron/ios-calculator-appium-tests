@@ -97,7 +97,7 @@ public abstract class IOSTestBase
 		driver = new IOSDriver(remoteURL, desiredCapabilities);
 		
 		/** add test object result watcher to report pass or fail **/
-		watcher.bindDriver(driver);
+		watcher.setDriver(driver);
 	}
 	
 	@After

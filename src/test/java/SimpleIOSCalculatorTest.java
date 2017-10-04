@@ -50,7 +50,7 @@ public class SimpleIOSCalculatorTest
 		driver = new IOSDriver(webdriverURL, desiredCapabilities);
 		
 		/** add test object result watcher to report pass or fail **/
-		resultWatcher.setSessionId(driver.getSessionId().toString());
+		resultWatcher.setDriver(driver);
 		
 		/** use "page objects" to encapsulate appium steps **/
 		calculator = new IOSCalculatorDriver(driver);
