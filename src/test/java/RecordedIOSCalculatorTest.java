@@ -23,7 +23,7 @@ public class RecordedIOSCalculatorTest {
 		desiredCapabilities.setCapability("testobject_suite_name", "IOS Calculator test");
 		desiredCapabilities.setCapability("testobject_test_name", "recorded with Appium Desktop");
 		desiredCapabilities.setCapability("privateDevicesOnly", "true");
-		desiredCapabilities.setCapability("testobject_api_key", "056DFB79F9A34D6A9012906C36D5FBED");
+		desiredCapabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY"));
 		
 		URL remoteUrl = new URL("https://us1.appium.testobject.com/wd/hub");
 		
