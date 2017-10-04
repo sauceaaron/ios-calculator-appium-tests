@@ -1,13 +1,14 @@
+import io.appium.java_client.AppiumDriver;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 public class TestObjectResultWatcher extends TestWatcher
 {
-	String sessionId;
+	AppiumDriver driver;
 	
-	public void setSessionId(String sessionId)
+	public void bindDriver(AppiumDriver driver)
 	{
-		this.sessionId = sessionId;
+		this.driver = driver;
 	}
 	
 	@Override
@@ -22,8 +23,8 @@ public class TestObjectResultWatcher extends TestWatcher
 		reportTestStatus(true);
 	}
 	
-	protected void reportTestStatus(boolean passed)
+	protected void reportTestStatus(boolean status)
 	{
-		new TestObjectResultReporter().saveTestStatus(sessionId, passed);
+		new TestObjectResultReporter().saveTestStatus(driver.getSessionId().toString(), status);
 	}
 }
