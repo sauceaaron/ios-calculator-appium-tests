@@ -74,7 +74,7 @@ public class SimpleIOSCalculatorTest
 	@Test
 	public void add_two_numbers()
 	{
-		IOSCalculatorDriver calculator = new IOSCalculatorDriver(driver);
+		calculator = new IOSCalculatorDriver(driver);
 		
 		calculator.pressKey("1");
 		calculator.pressKey("+");

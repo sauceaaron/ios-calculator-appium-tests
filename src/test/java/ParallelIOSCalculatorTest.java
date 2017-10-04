@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(ConcurrentParameterized.class)
@@ -101,13 +102,13 @@ public class ParallelIOSCalculatorTest
 	@Test
 	public void add_two_numbers()
 	{
+		calculator = new IOSCalculatorDriver(driver);
+		
 		calculator.pressKey("1");
 		calculator.pressKey("+");
 		calculator.pressKey("2");
 		calculator.pressKey("=");
-	
-		int sum = calculator.getDisplayedNumber();
 		
-		assertTrue(3 == sum);
+		assertEquals(3, calculator.getDisplayedNumber());
 	}
 }
