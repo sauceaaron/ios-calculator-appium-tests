@@ -1,12 +1,7 @@
 import io.appium.java_client.ios.IOSDriver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testobject.appium.junit.TestObjectTestResultWatcher;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -24,7 +19,7 @@ public class SimpleIOSCalculatorTest
 	public TestName testName = new TestName();
 	
 	@Rule
-	public TestObjectTestResultWatcher resultWatcher = new TestObjectTestResultWatcher();
+	public TestObjectResultWatcher resultWatcher = new TestObjectResultWatcher();
 	
 	@Before
 	public void setup() throws MalformedURLException
@@ -55,7 +50,7 @@ public class SimpleIOSCalculatorTest
 		driver = new IOSDriver(webdriverURL, desiredCapabilities);
 		
 		/** add test object result watcher to report pass or fail **/
-		resultWatcher.setRemoteWebDriver(driver);
+		resultWatcher.setSessionId(driver.getSessionId().toString());
 		
 		/** use "page objects" to encapsulate appium steps **/
 		calculator = new IOSCalculatorDriver(driver);
@@ -67,6 +62,7 @@ public class SimpleIOSCalculatorTest
 		/** cleanup driver after test **/
 		if (driver != null)
 		{
+			new TestObjectResultReporter().saveTestStatus(driver.getSessionId().toString(), true);
 			driver.quit();
 		}
 	}
@@ -82,5 +78,31 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("=");
 		
 		assertEquals(3, calculator.getDisplayedNumber());
+	}
+	
+	@Test
+	public void multiply_two_numbers()
+	{
+		calculator = new IOSCalculatorDriver(driver);
+		
+		calculator.pressKey("7");
+		calculator.pressKey("*");
+		calculator.pressKey("8");
+		calculator.pressKey("=");
+		
+		assertEquals(56, calculator.getDisplayedNumber());
+	}
+	
+	@Test
+	public void divide_two_numbers()
+	{
+		calculator = new IOSCalculatorDriver(driver);
+		
+		calculator.pressKey("9");
+		calculator.pressKey("/");
+		calculator.pressKey("2");
+		calculator.pressKey("=");
+		
+		assertEquals(5, calculator.getDisplayedNumber());
 	}
 }

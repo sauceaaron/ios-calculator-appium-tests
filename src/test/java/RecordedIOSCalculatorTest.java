@@ -43,7 +43,7 @@ public class RecordedIOSCalculatorTest {
 		List<MobileElement> els1 = (List<MobileElement>) driver.findElementsByXPath("//XCUIElementTypeStaticText[1]");
 		String result = els1.get(0).getText();
 		
-		assertEquals("3", result);
+		assertEquals("3.0", result);
 		
 		els1.get(0).clear();
 	}
