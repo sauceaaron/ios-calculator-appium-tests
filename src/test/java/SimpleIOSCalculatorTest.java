@@ -5,9 +5,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testobject.appium.junit.TestObjectTestResultWatcher;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import static org.junit.Assert.assertTrue;
 
 public class SimpleIOSCalculatorTest
 {
@@ -20,6 +23,9 @@ public class SimpleIOSCalculatorTest
 	@Rule
 	public TestName testName = new TestName();
 	
+	@Rule
+	public TestObjectTestResultWatcher resultWatcher = new TestObjectTestResultWatcher();
+	
 	@Before
 	public void setup() throws MalformedURLException
 	{
@@ -30,11 +36,15 @@ public class SimpleIOSCalculatorTest
 		desiredCapabilities.setCapability("testobject_suite_name", this.getClass().getSimpleName());
 		desiredCapabilities.setCapability("testobject_test_name", testName.getMethodName());
 		desiredCapabilities.setCapability("appiumVersion", "1.6.5");
+		
+		/** set device specific capabilities **/
 		desiredCapabilities.setCapability("platformName", "iOS");
 		desiredCapabilities.setCapability("platformVersion", "10.3");
-		desiredCapabilities.setCapability("phoneOnly", "yes");
+		desiredCapabilities.setCapability("deviceName", "iPhone 7");
+		desiredCapabilities.setCapability("phoneOnly", "true");
 		
 		driver = new IOSDriver(webdriverURL, desiredCapabilities);
+		resultWatcher.setRemoteWebDriver(driver);
 	}
 	
 	@After
@@ -49,5 +59,6 @@ public class SimpleIOSCalculatorTest
 	@Test
 	public void add_two_numbers()
 	{
+		assertTrue(true);
 	}
 }
