@@ -35,7 +35,7 @@ public class SimpleIOSCalculatorTest
 		desiredCapabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY"));
 		desiredCapabilities.setCapability("testobject_suite_name", this.getClass().getSimpleName());
 		desiredCapabilities.setCapability("testobject_test_name", testName.getMethodName());
-		desiredCapabilities.setCapability("appiumVersion", "1.6.5");
+		desiredCapabilities.setCapability("appiumVersion", "1.7.0");
 		
 		/** set device specific capabilities **/
 		desiredCapabilities.setCapability("platformName", "iOS");
