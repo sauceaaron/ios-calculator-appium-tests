@@ -56,7 +56,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <parallel>methods</parallel>
+                    <parallel>classes</parallel>
                     <threadCount>10</threadCount>
                 </configuration>
             </plugin>
