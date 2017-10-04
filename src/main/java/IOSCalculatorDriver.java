@@ -53,13 +53,28 @@ public class IOSCalculatorDriver
 		getKey(key).click();
 	}
 	
+	public void pressKey(int i)
+	{
+		pressKey(String.valueOf(i));
+	}
+	
 	public MobileElement getKey(String key)
 	{
 		return (MobileElement) driver.findElement(keypad.get(key));
 	}
 	
-	public MobileElement getScreen()
+	public MobileElement getDisplay()
 	{
 		return (MobileElement) driver.findElements(screen).get(0);
+	}
+	
+	public String getDisplayedValue()
+	{
+		return getDisplay().getText();
+	}
+	
+	public int getDisplayedNumber()
+	{
+		return Integer.parseInt(getDisplayedValue());
 	}
 }
