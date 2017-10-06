@@ -9,11 +9,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(ConcurrentParameterized.class)
-public class IOSCalculatorTest_MultipleDeviceParallel extends IOSTestBase
+public class ParallelIOSCalculatorTest extends IOSTestBase
 {
 	IOSCalculatorDriver calculator;
 	
-	public IOSCalculatorTest_MultipleDeviceParallel(String platformName, String platformVersion, String deviceName, String appiumVersion)
+	public ParallelIOSCalculatorTest(String platformName, String platformVersion, String deviceName, String appiumVersion)
 	{
 		this.platformName = platformName;
 		this.platformVersion = platformVersion;

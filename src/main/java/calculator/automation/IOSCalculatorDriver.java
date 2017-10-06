@@ -84,7 +84,7 @@ public class IOSCalculatorDriver implements CalculatorDriver
 	
 	public void clear()
 	{
-		throw new NotImplementedException();
+		// not implemented yet
 	}
 	
 }

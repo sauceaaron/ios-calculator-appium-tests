@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class SimpleIOSCalculatorTest
@@ -75,7 +76,7 @@ public class SimpleIOSCalculatorTest
 		int result = calculator.getDisplayedNumber();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertEquals(3, result);
+		assertTrue(3 == result);
 	}
 	
 	@Test
@@ -91,11 +92,11 @@ public class SimpleIOSCalculatorTest
 		int result = calculator.getDisplayedNumber();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertEquals(56, result);
+		assertTrue(56 == result);
 	}
 	
 	
-	/** this test should fail **/
+	/** this test is expected to fail **/
 	@Test
 	public void divide_two_numbers()
 	{
@@ -103,13 +104,13 @@ public class SimpleIOSCalculatorTest
 		
 		calculator.pressKey("9");
 		calculator.pressKey("/");
-		calculator.pressKey("3");
+		calculator.pressKey("2");
 		calculator.pressKey("=");
 		
 		int result = calculator.getDisplayedNumber();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertEquals("5", result);
+		assertTrue(3 == result);
 	}
 	
 	
