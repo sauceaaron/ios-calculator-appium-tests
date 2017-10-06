@@ -4,14 +4,13 @@ import io.appium.java_client.ios.IOSDriver;
 import org.junit.*;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import testobject.util.TestObjectResultReporter;
 import testobject.util.TestObjectResultWatcher;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.*;
+
 
 
 public class SimpleIOSCalculatorTest
@@ -73,10 +72,10 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("2");
 		calculator.pressKey("=");
 		
-		int result = calculator.getDisplayedNumber();
+		String result = calculator.readScreen();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertTrue(3 == result);
+		assertThat(result).isEqualTo(3);
 	}
 	
 	@Test
@@ -89,10 +88,10 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("8");
 		calculator.pressKey("=");
 		
-		int result = calculator.getDisplayedNumber();
+		String result = calculator.readScreen();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertTrue(56 == result);
+		assertThat(result).isEqualTo(56);
 	}
 	
 	
@@ -107,10 +106,10 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("2");
 		calculator.pressKey("=");
 		
-		int result = calculator.getDisplayedNumber();
+		String result = calculator.readScreen();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertTrue(3 == result);
+		assertThat(result).isEqualTo(4);
 	}
 	
 	

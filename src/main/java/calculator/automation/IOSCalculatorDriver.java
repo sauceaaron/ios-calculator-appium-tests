@@ -76,11 +76,6 @@ public class IOSCalculatorDriver implements CalculatorDriver
 	{
 		return getScreen().getText();
 	}
-
-	public int getDisplayedNumber()
-	{
-		return Integer.parseInt(readScreen());
-	}
 	
 	public void clear()
 	{

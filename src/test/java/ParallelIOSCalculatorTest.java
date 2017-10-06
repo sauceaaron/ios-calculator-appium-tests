@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 
 import java.util.LinkedList;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -27,7 +28,7 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 	{
 		LinkedList<String[]> devices = new LinkedList<String[]>();
 		devices.add(new String[]{"iOS", "10.2", "iPhone SE", "1.6.5"});
-		devices.add(new String[]{"iOS", "10.1.1", "iPad Air", "1.6.5"});
+//		devices.add(new String[]{"iOS", "10.1.1", "iPad Air", "1.6.5"});
 		
 		return devices;
 	}
@@ -42,6 +43,6 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 		calculator.pressKey("2");
 		calculator.pressKey("=");
 		
-		assertEquals(5, calculator.getDisplayedNumber());
+		assertThat(calculator.readScreen()).isEqualTo(3);
 	}
 }
