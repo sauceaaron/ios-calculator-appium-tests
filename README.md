@@ -28,3 +28,6 @@ To run tests in parallel across devices in `ParallelIOSCalculatorTest` set paral
 To run all tests in parallel in the same class in `SimpleIOSCalculatorTest`, set parallel=methods in pom.xml
 
     <parallel>methods</parallel>
+
+### Specify devices to test on
+Specify devices that are available to your desired capabilities.  In `parallelIOSCalculatorTest` specify in `runOnTheseDevices`

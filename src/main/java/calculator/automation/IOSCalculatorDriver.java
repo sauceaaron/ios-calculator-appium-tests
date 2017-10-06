@@ -1,10 +1,13 @@
+package calculator.automation;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 
-public class IOSCalculatorDriver
+public class IOSCalculatorDriver implements CalculatorDriver
 {
 	IOSDriver driver;
 	
@@ -29,6 +32,7 @@ public class IOSCalculatorDriver
 	public By divide = By.id("÷");
 	public By equals = By.id("=");
 	public By screen = By.xpath("//UIAStaticText");
+	public By clear = By.xpath("Idontknow");
 	
 	public HashMap<String, By> keypad = new HashMap<String, By>() {{
 		put("1", one);
@@ -48,6 +52,11 @@ public class IOSCalculatorDriver
 		put("=", equals);
 	}};
 	
+	public MobileElement getKey(String key)
+	{
+		return (MobileElement) driver.findElement(keypad.get(key));
+	}
+	
 	public void pressKey(String key)
 	{
 		getKey(key).click();
@@ -58,23 +67,24 @@ public class IOSCalculatorDriver
 		pressKey(String.valueOf(i));
 	}
 	
-	public MobileElement getKey(String key)
-	{
-		return (MobileElement) driver.findElement(keypad.get(key));
-	}
-	
-	public MobileElement getDisplay()
+	public MobileElement getScreen()
 	{
 		return (MobileElement) driver.findElements(screen).get(0);
 	}
 	
-	public String getDisplayedValue()
+	public String readScreen()
 	{
-		return getDisplay().getText();
+		return getScreen().getText();
 	}
-	
+
 	public int getDisplayedNumber()
 	{
-		return Integer.parseInt(getDisplayedValue());
+		return Integer.parseInt(readScreen());
 	}
+	
+	public void clear()
+	{
+		throw new NotImplementedException();
+	}
+	
 }

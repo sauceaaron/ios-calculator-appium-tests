@@ -1,28 +1,19 @@
+import calculator.automation.IOSCalculatorDriver;
 import com.saucelabs.junit.ConcurrentParameterized;
-import io.appium.java_client.ios.IOSDriver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testobject.appium.junit.TestObjectTestResultWatcher;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Calendar;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(ConcurrentParameterized.class)
-public class ParallelIOSCalculatorTest extends IOSTestBase
+public class IOSCalculatorTest_MultipleDeviceParallel extends IOSTestBase
 {
 	IOSCalculatorDriver calculator;
 	
-	public ParallelIOSCalculatorTest(String platformName, String platformVersion, String deviceName, String appiumVersion)
+	public IOSCalculatorTest_MultipleDeviceParallel(String platformName, String platformVersion, String deviceName, String appiumVersion)
 	{
 		this.platformName = platformName;
 		this.platformVersion = platformVersion;
@@ -34,7 +25,7 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 	@ConcurrentParameterized.Parameters
 	public static LinkedList runOnTheseDevices()
 	{
-		LinkedList<String[]> devices = new LinkedList<>();
+		LinkedList<String[]> devices = new LinkedList<String[]>();
 		devices.add(new String[]{"iOS", "10.2", "iPhone SE", "1.6.5"});
 		devices.add(new String[]{"iOS", "10.1.1", "iPad Air", "1.6.5"});
 		

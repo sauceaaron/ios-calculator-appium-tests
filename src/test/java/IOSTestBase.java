@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import testobject.util.TestObjectResultReporter;
+import testobject.util.TestObjectResultWatcher;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,10 +35,6 @@ public abstract class IOSTestBase
 	@Rule
 	public TestObjectResultWatcher watcher = new TestObjectResultWatcher();
 	
-	public void setStatus(Boolean passed)
-	{
-		new TestObjectResultReporter().saveTestStatus(driver.getSessionId().toString(), passed);
-	}
 	
 	public URL getRemoteURL(Location location) throws MalformedURLException
 	{
@@ -96,7 +94,7 @@ public abstract class IOSTestBase
 		/** initialize IOS driver **/
 		driver = new IOSDriver(remoteURL, desiredCapabilities);
 		
-		/** add test object result watcher to report pass or fail **/
+		/** test object result watcher will report pass or fail **/
 		watcher.setDriver(driver);
 	}
 	
