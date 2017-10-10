@@ -116,7 +116,7 @@ public class SimpleIOSCalculatorTest
 		if (driver != null)
 		{
 			TestObjectResultReporter reporter = new TestObjectResultReporter();
-			reporter.saveTestStatus(driver.getSessionId().toString(), watcher.status);
+			reporter.saveTestStatus(driver.getSessionId().toString(), true);
 			driver.quit();
 		}
 	}
