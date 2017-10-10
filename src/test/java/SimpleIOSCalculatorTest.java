@@ -4,6 +4,7 @@ import io.appium.java_client.ios.IOSDriver;
 import org.junit.*;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import testobject.util.TestObjectResultReporter;
 import testobject.util.TestObjectResultWatcher;
 
 import java.net.MalformedURLException;
@@ -114,6 +115,8 @@ public class SimpleIOSCalculatorTest
 		/** cleanup driver after test **/
 		if (driver != null)
 		{
+			TestObjectResultReporter reporter = new TestObjectResultReporter();
+			reporter.saveTestStatus(driver.getSessionId().toString(), watcher.status);
 			driver.quit();
 		}
 	}

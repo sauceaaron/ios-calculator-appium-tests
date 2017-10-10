@@ -40,30 +40,12 @@ public class TestObjectResultWatcher extends TestWatcher
 		reportTestStatus(description);
 	}
 	
-	
 	protected void reportTestStatus(Description description)
 	{
 		System.out.println(description.getDisplayName());
 		System.out.println("status: " + (status ? "PASSED" : "FAILED"));
 		System.out.println("sessionId: " + sessionId);
 		
-		sendStatus();
 		new TestObjectResultReporter().saveTestStatus(sessionId, status);
-	}
-	
-	private void sendStatus()
-	{
-		String TESTOBJECT_APPIUM_API_ENDPOINT = "https://app.testobject.com/api/rest/v1/appium/";
-		
-		Client client = ClientBuilder.newClient();
-		WebTarget resource = client.target(TESTOBJECT_APPIUM_API_ENDPOINT);
-		final Response response = resource.path("session")
-				.path(sessionId)
-				.path("test")
-				.request(new MediaType[]{MediaType.APPLICATION_JSON_TYPE})
-				.put(Entity.json(Collections.singletonMap("passed", status)));
-		
-		System.out.println("RESPONSE: " + response.getStatus());
-		
 	}
 }
