@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import testobject.util.TestObjectResultReporter;
 import testobject.util.TestObjectResultWatcher;
 
 import java.net.MalformedURLException;
@@ -91,11 +90,13 @@ public abstract class IOSTestBase
 		/** specify desired capabilities **/
 		desiredCapabilities = getDesiredCapabilities(platformName, platformVersion, deviceName, appiumVersion);
 		
+		System.out.println("-----DESIRED CAPABILITIES-----\n" + desiredCapabilities);
+		
 		/** initialize IOS driver **/
 		driver = new IOSDriver(remoteURL, desiredCapabilities);
 		
 		/** test object result watcher will report pass or fail **/
-		watcher.setDriver(driver);
+		watcher.setSessionId(driver.getSessionId().toString());
 	}
 	
 	@After

@@ -3,7 +3,6 @@ package calculator.automation;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 
@@ -16,25 +15,25 @@ public class IOSCalculatorDriver implements CalculatorDriver
 		this.driver = driver;
 	}
 	
-	public By one = By.id("1");
-	public By two = By.id("2");
-	public By three = By.id("3");
-	public By four = By.id("4");
-	public By five = By.id("5");
-	public By six = By.id("6");
-	public By seven = By.id("7");
-	public By eight = By.id("8");
-	public By nine = By.id("9");
-	public By zero = By.id("0");
-	public By add = By.id("+");
-	public By subtract = By.id("-");
-	public By multiply = By.id("×");
-	public By divide = By.id("÷");
-	public By equals = By.id("=");
-	public By screen = By.xpath("//UIAStaticText");
-	public By clear = By.xpath("Idontknow");
+	public static By one = By.id("1");
+	public static By two = By.id("2");
+	public static By three = By.id("3");
+	public static By four = By.id("4");
+	public static By five = By.id("5");
+	public static By six = By.id("6");
+	public static By seven = By.id("7");
+	public static By eight = By.id("8");
+	public static By nine = By.id("9");
+	public static By zero = By.id("0");
+	public static By add = By.id("+");
+	public static By subtract = By.id("-");
+	public static By multiply = By.id("×");
+	public static By divide = By.id("÷");
+	public static By equals = By.id("=");
+	public static By screen = By.xpath("//XCUIElementTypeStaticText[1]");
+	public static By clear = By.id("C");
 	
-	public HashMap<String, By> keypad = new HashMap<String, By>() {{
+	public static HashMap<String, By> keypad = new HashMap<String, By>() {{
 		put("1", one);
 		put("2", two);
 		put("3", three);
@@ -50,6 +49,7 @@ public class IOSCalculatorDriver implements CalculatorDriver
 		put("*", multiply);
 		put("/", divide);
 		put("=", equals);
+		put("C", clear);
 	}};
 	
 	public MobileElement getKey(String key)
@@ -62,14 +62,9 @@ public class IOSCalculatorDriver implements CalculatorDriver
 		getKey(key).click();
 	}
 	
-	public void pressKey(int i)
-	{
-		pressKey(String.valueOf(i));
-	}
-	
 	public MobileElement getScreen()
 	{
-		return (MobileElement) driver.findElements(screen).get(0);
+		return (MobileElement) driver.findElement(screen);
 	}
 	
 	public String readScreen()
@@ -79,7 +74,6 @@ public class IOSCalculatorDriver implements CalculatorDriver
 	
 	public void clear()
 	{
-		// not implemented yet
+		getKey("C").click();
 	}
-	
 }
