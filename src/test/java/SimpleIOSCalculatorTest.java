@@ -4,8 +4,10 @@ import io.appium.java_client.ios.IOSDriver;
 import org.junit.*;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import testobject.util.TestObjectResultReporter;
-import testobject.util.TestObjectResultWatcher;
+import testobject.results.TestCase;
+import testobject.results.TestObjectResultReporter;
+import testobject.results.TestObjectResultWatcher;
+import testobject.results.TestResult;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,6 +22,7 @@ public class SimpleIOSCalculatorTest
 	IOSDriver driver;
 	DesiredCapabilities desiredCapabilities;
 	URL webdriverURL;
+	TestResult result;
 	
 	@Rule
 	public TestName testName = new TestName();
@@ -51,18 +54,18 @@ public class SimpleIOSCalculatorTest
 		desiredCapabilities.setCapability("tabletOnly", "false");
 		desiredCapabilities.setCapability("privateDevicesOnly", "false");
 		
-		
 		System.out.println("-----DESIRED CAPABILITIES-----\n" + desiredCapabilities);
-		
 		
 		/** initialize IOS driver **/
 		driver = new IOSDriver(webdriverURL, desiredCapabilities);
 		
-		/** add test object result watcher to report pass or fail **/
-		watcher.setSessionId(driver.getSessionId().toString());
+//		/** add test object result watcher to report pass or fail **/
+//		watcher.setSessionId(driver.getSessionId().toString());
 		
 		/** use "page objects" to encapsulate appium steps **/
 		calculator = new IOSCalculatorDriver(driver);
+		
+		TestResult result = new TestResult(driver.getSessionId().toString());
 	}
 	
 	@Test
@@ -72,13 +75,23 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("+");
 		calculator.pressKey("2");
 		calculator.pressKey("=");
-
-		String result = calculator.readScreen();
-		System.out.println("CALCULATOR GOT VALUE: " + result);
 		
-		assertTrue(true);
+		String output = calculator.readScreen();
+		System.out.println("CALCULATOR GOT VALUE: " + output);
+		
+		try
+		{
+			assertEquals("3.0", output);
+			result.pass();
+		}
+		catch (AssertionError e)
+		{
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			result.fail();
+		}
 	}
-
+	
 	@Test
 	public void multiply_two_numbers()
 	{
@@ -87,14 +100,23 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("8");
 		calculator.pressKey("=");
 
-		String result = calculator.readScreen();
+		String output = calculator.readScreen();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
-
-		assertEquals("56.0", result);
+		
+		try
+		{
+			assertEquals("56.0", output);
+			result.pass();
+		}
+		catch (AssertionError e)
+		{
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			result.fail();
+		}
 	}
 
 	/** this should fail **/
-	@Ignore
 	@Test
 	public void divide_two_numbers()
 	{
@@ -102,11 +124,21 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("/");
 		calculator.pressKey("2");
 		calculator.pressKey("=");
-
-		String result = calculator.readScreen();
+		
+		String output = calculator.readScreen();
 		System.out.println("CALCULATOR GOT VALUE: " + result);
-
-		assertEquals("3", result);
+		
+		try
+		{
+			assertEquals("3.0", output);
+			result.pass();
+		}
+		catch (AssertionError e)
+		{
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			result.fail();
+		}
 	}
 	
 	@After
@@ -115,9 +147,10 @@ public class SimpleIOSCalculatorTest
 		/** cleanup driver after test **/
 		if (driver != null)
 		{
-			TestObjectResultReporter reporter = new TestObjectResultReporter();
-			reporter.saveTestStatus(driver.getSessionId().toString(), true);
 			driver.quit();
 		}
+		
+		TestObjectResultReporter reporter = new TestObjectResultReporter();
+		reporter.saveTestStatus(result.sessionId, result.passed());
 	}
 }

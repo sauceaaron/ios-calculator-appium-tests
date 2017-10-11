@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import testobject.util.TestObjectResultWatcher;
+import testobject.results.TestObjectResultWatcher;
 
 import java.net.MalformedURLException;
 import java.net.URL;

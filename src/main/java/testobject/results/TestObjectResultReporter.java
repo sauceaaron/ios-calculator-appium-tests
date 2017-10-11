@@ -1,4 +1,4 @@
-package testobject.util;
+package testobject.results;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

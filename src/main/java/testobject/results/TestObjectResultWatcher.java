@@ -1,17 +1,7 @@
-package testobject.util;
+package testobject.results;
 
-import io.appium.java_client.AppiumDriver;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.Collections;
 
 public class TestObjectResultWatcher extends TestWatcher
 {
