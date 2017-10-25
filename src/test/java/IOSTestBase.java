@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import testobject.results.TestObjectResultReporter;
 import testobject.results.TestObjectResultWatcher;
 
 import java.net.MalformedURLException;
@@ -15,6 +16,12 @@ public abstract class IOSTestBase
 	protected DesiredCapabilities desiredCapabilities;
 	protected URL remoteURL;
 	
+	protected String sessionId;
+	
+	protected boolean status;
+	protected boolean PASSED=true;
+	protected boolean FAILED=false;
+	
 	public enum Location { EU, US }
 	protected Location location = Location.US; // default
 	
@@ -22,18 +29,15 @@ public abstract class IOSTestBase
 	protected String platformVersion;
 	protected String deviceName;
 	protected String appiumVersion;
-	protected Boolean phoneOnly;
-	protected Boolean tabletOnly;
+	protected Boolean phoneOnly = false;
+	protected Boolean tabletOnly = false;
+	protected Boolean privateDevicesOnly = false;
 	
 	protected static final String TESTOBJECT_URL_US = "https://us1.appium.testobject.com/wd/hub";
 	protected static final String TESTOBJECT_URL_EU = "https://eu1.appium.testobject.com/wd/hub";
 	
 	@Rule
 	public TestName testName = new TestName();
-	
-	@Rule
-	public TestObjectResultWatcher watcher = new TestObjectResultWatcher();
-	
 	
 	public URL getRemoteURL(Location location) throws MalformedURLException
 	{
@@ -67,6 +71,7 @@ public abstract class IOSTestBase
 		
 		if (phoneOnly != null) desiredCapabilities.setCapability("phoneOnly", String.valueOf(phoneOnly));
 		if (tabletOnly != null) desiredCapabilities.setCapability("tabletOnly", String.valueOf(tabletOnly));
+		if (privateDevicesOnly != null) desiredCapabilities.setCapability("privateDevicesOnly", String.valueOf(privateDevicesOnly));
 		
 		return desiredCapabilities;
 	}
@@ -94,9 +99,7 @@ public abstract class IOSTestBase
 		
 		/** initialize IOS driver **/
 		driver = new IOSDriver(remoteURL, desiredCapabilities);
-		
-		/** test object result watcher will report pass or fail **/
-		watcher.setSessionId(driver.getSessionId().toString());
+		sessionId = driver.getSessionId().toString();
 	}
 	
 	@After
@@ -105,6 +108,7 @@ public abstract class IOSTestBase
 		/** cleanup driver after test **/
 		if (driver != null)
 		{
+			new TestObjectResultReporter().saveTestStatus(driver.getSessionId().toString(), status);
 			driver.quit();
 		}
 	}

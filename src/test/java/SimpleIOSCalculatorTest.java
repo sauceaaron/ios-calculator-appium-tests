@@ -46,13 +46,13 @@ public class SimpleIOSCalculatorTest
 		
 		/** set device capabilities **/
 		desiredCapabilities.setCapability("platformName", "iOS");
-		desiredCapabilities.setCapability("platformVersion", "10.2");
+//		desiredCapabilities.setCapability("platformVersion", "10.3");
 //		desiredCapabilities.setCapability("deviceName", "iPhone SE");
-		desiredCapabilities.setCapability("appiumVersion", "1.6.5");
+//		desiredCapabilities.setCapability("appiumVersion", "1.6.5");
 		
-		desiredCapabilities.setCapability("phoneOnly", "false");
-		desiredCapabilities.setCapability("tabletOnly", "false");
-		desiredCapabilities.setCapability("privateDevicesOnly", "false");
+//		desiredCapabilities.setCapability("phoneOnly", "false");
+//		desiredCapabilities.setCapability("tabletOnly", "false");
+		desiredCapabilities.setCapability("privateDevicesOnly", "true");
 		
 		System.out.println("-----DESIRED CAPABILITIES-----\n" + desiredCapabilities);
 		
@@ -149,6 +149,8 @@ public class SimpleIOSCalculatorTest
 		{
 			driver.quit();
 		}
+		
+		System.out.println("status: " + result.sessionId + " " + result.passed());
 		
 		TestObjectResultReporter reporter = new TestObjectResultReporter();
 		reporter.saveTestStatus(result.sessionId, result.passed());
