@@ -46,7 +46,8 @@ public class SimpleParallelIOSTestNG
 		IOSCalculatorDriver calculator = new IOSCalculatorDriver(driver);
 		
 		/** perform test steps **/
-		calculator.pressKey("10");
+		calculator.pressKey("1");
+		calculator.pressKey("0");
 		calculator.pressKey("-");
 		calculator.pressKey("1");
 		calculator.pressKey("=");
