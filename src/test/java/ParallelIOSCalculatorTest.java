@@ -28,7 +28,7 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 	{
 		LinkedList<String[]> devices = new LinkedList<String[]>();
 		devices.add(new String[]{"iOS", "10.2", "iPhone SE", "1.6.5"});
-//		devices.add(new String[]{"iOS", "10.1.1", "iPad Air", "1.6.5"});
+		devices.add(new String[]{"iOS", "11.2", "iPad Air", "1.7.2"});
 		
 		return devices;
 	}
@@ -52,4 +52,5 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 			status = FAILED;
 		}
 	}
+
 }

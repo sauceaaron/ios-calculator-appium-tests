@@ -3,11 +3,10 @@ import calculator.automation.IOSCalculatorDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.*;
 import org.junit.rules.TestName;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import testobject.results.TestCase;
-import testobject.results.TestObjectResultReporter;
-import testobject.results.TestObjectResultWatcher;
-import testobject.results.TestResult;
+import org.testobject.appium.junit.TestObjectTestResultWatcher;
+import testobject.results.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,10 +25,10 @@ public class SimpleIOSCalculatorTest
 	
 	@Rule
 	public TestName testName = new TestName();
-	
+
 	@Rule
-	public TestObjectResultWatcher watcher = new TestObjectResultWatcher();
-	
+	public TestObjectTestResultWatcher resultWatcher = new TestObjectTestResultWatcher();
+
 	@Before
 	public void setup() throws MalformedURLException
 	{
@@ -38,7 +37,7 @@ public class SimpleIOSCalculatorTest
 		
 		/** specify desired capabilities **/
 		desiredCapabilities = new DesiredCapabilities();
-		
+
 		/** set testobject capabililites **/
 		desiredCapabilities.setCapability("testobject_api_key", System.getenv("TESTOBJECT_API_KEY"));
 		desiredCapabilities.setCapability("testobject_suite_name", this.getClass().getSimpleName());
@@ -46,26 +45,25 @@ public class SimpleIOSCalculatorTest
 		
 		/** set device capabilities **/
 		desiredCapabilities.setCapability("platformName", "iOS");
-//		desiredCapabilities.setCapability("platformVersion", "10.3");
-//		desiredCapabilities.setCapability("deviceName", "iPhone SE");
-//		desiredCapabilities.setCapability("appiumVersion", "1.6.5");
-		
+		desiredCapabilities.setCapability("platformVersion", "10.2");
+		desiredCapabilities.setCapability("deviceName", "iPhone SE");
+		desiredCapabilities.setCapability("appiumVersion", "1.7.2");
+		desiredCapabilities.setCapability("orientation", "PORTRAIT");
+
 //		desiredCapabilities.setCapability("phoneOnly", "false");
 //		desiredCapabilities.setCapability("tabletOnly", "false");
-		desiredCapabilities.setCapability("privateDevicesOnly", "true");
+//		desiredCapabilities.setCapability("privateDevicesOnly", "true");
 		
 		System.out.println("-----DESIRED CAPABILITIES-----\n" + desiredCapabilities);
 		
 		/** initialize IOS driver **/
 		driver = new IOSDriver(webdriverURL, desiredCapabilities);
-		
-//		/** add test object result watcher to report pass or fail **/
-//		watcher.setSessionId(driver.getSessionId().toString());
-		
+
+		/** add test object result watcher to report pass or fail **/
+		resultWatcher.setRemoteWebDriver(driver);
+
 		/** use "page objects" to encapsulate appium steps **/
 		calculator = new IOSCalculatorDriver(driver);
-		
-		TestResult result = new TestResult(driver.getSessionId().toString());
 	}
 	
 	@Test
@@ -75,7 +73,7 @@ public class SimpleIOSCalculatorTest
 		calculator.pressKey("+");
 		calculator.pressKey("2");
 		calculator.pressKey("=");
-		
+
 		String output = calculator.readScreen();
 		System.out.println("CALCULATOR GOT VALUE: " + output);
 		
@@ -151,8 +149,10 @@ public class SimpleIOSCalculatorTest
 		}
 		
 		System.out.println("status: " + result.sessionId + " " + result.passed());
-		
-		TestObjectResultReporter reporter = new TestObjectResultReporter();
-		reporter.saveTestStatus(result.sessionId, result.passed());
+
+		new TestObjectResultReporter().saveTestStatus(driver.getSessionId().toString(), result.getStatus() == TestStatus.PASSED);
+
+//		TestObjectResultReporter reporter = new TestObjectResultReporter();
+//		reporter.saveTestStatus(result.sessionId, result.passed());
 	}
 }

@@ -69,9 +69,9 @@ public abstract class IOSTestBase
 		if (deviceName != null) desiredCapabilities.setCapability("deviceName", deviceName);
 		if (appiumVersion != null) desiredCapabilities.setCapability("appiumVersion", appiumVersion);
 		
-		if (phoneOnly != null) desiredCapabilities.setCapability("phoneOnly", String.valueOf(phoneOnly));
-		if (tabletOnly != null) desiredCapabilities.setCapability("tabletOnly", String.valueOf(tabletOnly));
-		if (privateDevicesOnly != null) desiredCapabilities.setCapability("privateDevicesOnly", String.valueOf(privateDevicesOnly));
+//		if (phoneOnly != null) desiredCapabilities.setCapability("phoneOnly", String.valueOf(phoneOnly));
+//		if (tabletOnly != null) desiredCapabilities.setCapability("tabletOnly", String.valueOf(tabletOnly));
+//		if (privateDevicesOnly != null) desiredCapabilities.setCapability("privateDevicesOnly", String.valueOf(privateDevicesOnly));
 		
 		return desiredCapabilities;
 	}
