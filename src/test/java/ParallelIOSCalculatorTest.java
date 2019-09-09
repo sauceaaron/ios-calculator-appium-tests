@@ -27,9 +27,11 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 	public static LinkedList runOnTheseDevices()
 	{
 		LinkedList<String[]> devices = new LinkedList<String[]>();
-		devices.add(new String[]{"iOS", "10.2", "iPhone SE", "1.6.5"});
-		devices.add(new String[]{"iOS", "11.2", "iPad Air", "1.7.2"});
-		
+//		devices.add(new String[]{"iOS", "10.2", "iPhone SE", "1.8.0"});
+//		devices.add(new String[]{"iOS", "11.4", "iPad Air 2", "1.8.0"});
+		devices.add(new String[]{"iOS", null, "iPhone.*", null});
+		devices.add(new String[]{"iOS", null, "iPad.*", null});
+
 		return devices;
 	}
 	
@@ -53,4 +55,52 @@ public class ParallelIOSCalculatorTest extends IOSTestBase
 		}
 	}
 
+	@Test
+	public void multiply_two_numbers()
+	{
+		calculator = new IOSCalculatorDriver(driver);
+
+		calculator.pressKey("7");
+		calculator.pressKey("*");
+		calculator.pressKey("8");
+		calculator.pressKey("=");
+
+		String output = calculator.readScreen();
+		System.out.println("CALCULATOR GOT VALUE: " + output);
+
+		try {
+			assertThat(calculator.readScreen()).isEqualTo("56.0");
+			status = PASSED;
+		} catch (AssertionError e)
+		{
+			e.printStackTrace();
+			status = FAILED;
+		}
+	}
+
+	/** this should fail **/
+	@Test
+	public void divide_two_numbers()
+	{
+		calculator = new IOSCalculatorDriver(driver);
+
+		calculator.pressKey("9");
+		calculator.pressKey("/");
+		calculator.pressKey("2");
+		calculator.pressKey("=");
+
+		String output = calculator.readScreen();
+		System.out.println("CALCULATOR GOT VALUE: " + output);
+
+		assertEquals("3.0", output);
+
+		try {
+			assertEquals("3.0", output);
+			status = PASSED;
+		} catch (AssertionError e)
+		{
+			e.printStackTrace();
+			status = FAILED;
+		}
+	}
 }

@@ -32,10 +32,12 @@ public abstract class IOSTestBase
 	protected Boolean phoneOnly = false;
 	protected Boolean tabletOnly = false;
 	protected Boolean privateDevicesOnly = false;
-	
+
 	protected static final String TESTOBJECT_URL_US = "https://us1.appium.testobject.com/wd/hub";
 	protected static final String TESTOBJECT_URL_EU = "https://eu1.appium.testobject.com/wd/hub";
-	
+
+	String TESTOBJECT_API_KEY = System.getenv("TESTOBJECT_API_KEY");
+
 	@Rule
 	public TestName testName = new TestName();
 	
